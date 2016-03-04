@@ -2,42 +2,54 @@ var express = require('express');
 var router = express.Router();
 
 
-module.exports.registerRoutes = function(passport) {
-	router.get('/logout', function(req, res) {
-        req.logout();
-        res.redirect('/');
-    });
+module.exports.registerRoutes = function(models) {
 
-    router.post('/signup', function(req, res, next){
-    	passport.authenticate('local-signup', function(err, user, info){
-    		if(err) {next(); return;}
-    		if(!user){next(); return;};
-    		req.logIn(user, function(err){
-    			if(err) {next(); return;}
-    			res.json(user);
-    		});
-    	})(req, res, next);
-    }, function(req, res, next){
-    	res.status(500).send({errmsg: 'Internal Server Error'});
-    });
+	//get all TODO
+	//add TODO
+	//deactivate/ban TODO
 
-    router.post('/login', function(req, res, next){
-    	passport.authenticate('local-login', function(err, user, info){
-    		if(err) {next(); return;}
-    		if(!user) {next(); return;};
-    		res.json({code: 1, id: user._id});
-    	})(req, res, next);
-    }, function(req,  res, next){
-    	res.status(500).send({errmsg: 'Authentication Failed'});
-    });
+	router.get('/', function(req, res, next){
+			models.User.find({}, function(err, users){
+				if(err){
+					next(err);
+				} else if(!users){
+					next({message: 'cant load documents'});
+				} else {
+					res.status(200).send(users);
+				}
+			});
+	});
 
+	router.post('/', function(req, res, next){
+			new models.User(req.body).save(function(err, user){
+					if(err){
+						next(err);
+					} else if(!user){
+						next({message: 'There was some error while creating user'});
+					} else {
+						res.status(201).send({_id: user._id, _v: user._v});
+					}
+			});
+	});
 
+	router.put('/deactivate/:id', function(req, res, next){
+		models.User.findById(req.params.id, function(err, user){
+			if(err){
+				next(err);
+			} else if(!user){
+				next({message: 'cant load document'});
+			} else {
+					user.active = false;
+					user.save(function(err, user){
+							if(err){
+								next(err);
+							} else {
+								res.status(201).send({_id: user._id, _v: user._v});
+							}
+					});
+			}
+		});
+	});
 
 	return router;
-}
-
-module.exports.isLoggedIn = function(req, res, next){
-	if(req.isAuthenticated())
-		return next();
-	res.redirect('/');
 }

@@ -3,7 +3,7 @@
   "qa": {
     "username": "myUserAdmin",
     "password": "abc123",
-    "database": "doughnut_qa",
+    "database": "opium-cake_qa",
     "host": "127.0.0.1",
     "port": 27017
   },
@@ -11,6 +11,6 @@
 
   },
   "production": {
-    
+
   }
 }

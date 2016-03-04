@@ -18,7 +18,7 @@ var app = express();
 
 //set to qa server
 connector(mongoose, dbaseConfig.qa);
-require('./config/passport')(passport);
+//require('./config/passport')(passport);
 
 //seed(models, require('mongodb').ObjectID);
 
@@ -41,7 +41,7 @@ app.use(flash());
 
 
 app.use('/', routes);
-app.use('/api/user', userRoute.registerRoutes(passport));
+app.use('/api/user', userRoute.registerRoutes(models));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
