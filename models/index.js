@@ -5,7 +5,7 @@ var models    = this;
 var masterData = ["Adjective", "Ingredient", "Unit", "Utensil"];
 
 fs.readdirSync(__dirname + '/').forEach(function(file) {
-  if (file.match(/\.js$/) !== null && file != 'connector.js') {
+  if (file.match(/\.js$/) !== null && file != 'connector.js' && file != 'Audit.js') {
     var name = file.replace('.js', '');
     exports[name] = require('./'+name);
   }

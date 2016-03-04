@@ -1,11 +1,12 @@
 var mongoose = require('mongoose');
 var bcrypt   = require('bcrypt-nodejs');
+var Audit    = require('./Audit.js');
 
 
 var Schema = mongoose.Schema;
 var ObjectId = Schema.ObjectId;
 
-var userSchema = mongoose.Schema({
+var userSchema = mongoose.Schema(Audit.audify({
 
 
 
@@ -24,10 +25,9 @@ var userSchema = mongoose.Schema({
         token        : String,
         email        : String,
         name         : String
-    },
-    active           : {type: Boolean, required: true, default: true}
+    }
 
-});
+}));
 
 
 // methods ======================

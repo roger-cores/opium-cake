@@ -4,9 +4,9 @@ var router = express.Router();
 
 module.exports.registerRoutes = function(models) {
 
-	//get all TODO
-	//add TODO
-	//deactivate/ban TODO
+	//get all DONE
+	//add DONE
+	//deactivate/ban DONE
 
 	router.get('/', function(req, res, next){
 			models.User.find({}, function(err, users){
@@ -21,7 +21,12 @@ module.exports.registerRoutes = function(models) {
 	});
 
 	router.post('/', function(req, res, next){
-			new models.User(req.body).save(function(err, user){
+
+			var newUser = new models.User(req.body);
+
+			newUser.local.password = newUser.generateHash(req.body.local.password);
+
+			newUser.save(function(err, user){
 					if(err){
 						next(err);
 					} else if(!user){

@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var passport = require('passport');
 var routes = require('./routes/index');
 var userRoute = require('./routes/users');
+var projectRoute = require('./routes/projects');
 var mongoose = require('mongoose');
 var session = require('express-session');
 var flash = require('connect-flash');
@@ -14,6 +15,7 @@ var models = require('./models');
 var dbaseConfig = require('./models/config.json');
 var connector = require('./models/connector');
 var seed = require('./seed');
+var utils = require('./utils');
 var app = express();
 
 //set to qa server
@@ -42,6 +44,7 @@ app.use(flash());
 
 app.use('/', routes);
 app.use('/api/user', userRoute.registerRoutes(models));
+app.use('/api/project', projectRoute.registerRoutes(models, utils));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
