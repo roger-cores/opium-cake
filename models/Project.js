@@ -8,7 +8,8 @@ var ObjectId = Schema.ObjectId;
 
 var projectSchema = mongoose.Schema(Audit.audify({
     name             : {type: String, required: true, unique: true},
-    users            : [{type: ObjectId, ref: 'user'}]
+    users            : [{type: ObjectId, ref: 'user'}],
+    urls             : [{type: String}]
 }));
 
 
