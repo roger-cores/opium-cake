@@ -4,21 +4,15 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var passport = require('passport');
-var routes = require('./routes/index');
-var userRoute = require('./routes/users');
 var mongoose = require('mongoose');
-var session = require('express-session');
-var flash = require('connect-flash');
-var models = require('./models');
+//var models = require('./models');
+var routes =require('./routes/index.js')
 var dbaseConfig = require('./models/config.json');
 var connector = require('./models/connector');
-var seed = require('./seed');
 var app = express();
 
 //set to qa server
-connector(mongoose, dbaseConfig.qa);
-require('./config/passport')(passport);
+//connector(mongoose, dbaseConfig.qa);
 
 //seed(models, require('mongodb').ObjectID);
 
@@ -34,14 +28,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(session({ secret: 'iyamnotsouthhero'}));
-//app.use(passport.initialize());
-//app.use(passport.session());
-app.use(flash());
+//api routes
 
 
+//view routes
 app.use('/', routes);
-app.use('/api/user', userRoute.registerRoutes(passport));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -73,6 +64,5 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
-
 
 module.exports = app;
