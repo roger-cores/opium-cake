@@ -4,20 +4,24 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var passport = require('passport');
+var routes = require('./server/routes/index');
+var userRoute = require('./server/routes/users');
+var projectRoute = require('./server/routes/projects');
 var mongoose = require('mongoose');
-//var models = require('./models');
-var routes =require('./routes/index.js')
-var dbaseConfig = require('./models/config.json');
-var connector = require('./models/connector');
+var session = require('express-session');
+var flash = require('connect-flash');
+var models = require('./server/models');
+var dbaseConfig = require('./server/models/config.json');
+var connector = require('./server/models/connector');
+var utils = require('./server/utils');
 var app = express();
 
 //set to qa server
-//connector(mongoose, dbaseConfig.qa);
-
-//seed(models, require('mongodb').ObjectID);
+connector(mongoose, dbaseConfig.qa);
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'public/views'));
 app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
@@ -33,6 +37,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //view routes
 app.use('/', routes);
+app.use('/api/user', userRoute.registerRoutes(models));
+app.use('/api/project', projectRoute.registerRoutes(models, utils));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
