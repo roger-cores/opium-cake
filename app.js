@@ -25,7 +25,7 @@ connector(mongoose, dbaseConfig.qa);
 //seed(models, require('mongodb').ObjectID);
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'public/views'));
 app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
