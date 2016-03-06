@@ -5,17 +5,17 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var passport = require('passport');
-var routes = require('./routes/index');
-var userRoute = require('./routes/users');
-var projectRoute = require('./routes/projects');
+var routes = require('./server/routes/index');
+var userRoute = require('./server/routes/users');
+var projectRoute = require('./server/routes/projects');
 var mongoose = require('mongoose');
 var session = require('express-session');
 var flash = require('connect-flash');
-var models = require('./models');
-var dbaseConfig = require('./models/config.json');
-var connector = require('./models/connector');
-var seed = require('./seed');
-var utils = require('./utils');
+var models = require('./server/models');
+var dbaseConfig = require('./server/models/config.json');
+var connector = require('./server/models/connector');
+var seed = require('./server/seed');
+var utils = require('./server/utils');
 var app = express();
 
 //set to qa server
