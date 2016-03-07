@@ -20,10 +20,27 @@ module.exports = function(models, ObjectId){
     active: true
   };
 
+  var user2 = {
+    local: {
+      email: "john.doe@opiumcake.com",
+      password: "thepasswordagain"
+    },
+
+    createdAt: Date.now(),
+    modifiedAt: Date.now(),
+    createdBy: "admin",
+    modifiedBy: "admin",
+    active: true
+  }
+
 
   var newUser = new models.User(user);
+  var newUser2 = new models.User(user2);
 
-  newUser.local.password = newUser.generateHash(user.local.password);
+  newUser.local.password = newUser.generateHash(user2.local.password);
   newUser.save(callback);
+
+  newUser2.local.password = newUser.generateHash(user2.local.password);
+  newUser2.save(callback);
 
 }

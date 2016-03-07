@@ -6,8 +6,9 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var passport = require('passport');
 var routes = require('./server/routes/index');
-var userRoute = require('./server/routes/users');
+var adminUserRoute = require('./server/routes/admin/users');
 var projectRoute = require('./server/routes/projects');
+var adminProjectRoute = require('./server/routes/admin/projects');
 var mongoose = require('mongoose');
 var session = require('express-session');
 var flash = require('connect-flash');
@@ -37,7 +38,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //view routes
 app.use('/', routes);
-app.use('/api/user', userRoute.registerRoutes(models));
+
+//Admin Panel
+app.use('/api/admin/user', adminUserRoute.registerRoutes(models));
+app.use('/api/admin/project', adminProjectRoute.registerRoutes(models, utils));
+
+//App
 app.use('/api/project', projectRoute.registerRoutes(models, utils));
 
 // catch 404 and forward to error handler
