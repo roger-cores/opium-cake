@@ -1,6 +1,21 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
-  md-button(value='#{title}') 
+  div(layout='column' ng-controller='AppCtrl')
+  md-toolbar(layout='row')
+        h1=title
+  br
+  br
+  br      
+  md-card(layout="column" style='margin:auto;width:30%;padding: 5px;')
+    md-input-container
+      input(placeholder='username',ng-model='title1')
+    md-input-container
+        input(placeholder='password',ng-model='title1')    
+    md-card-actions(layout="row" layout-align="center")
+      md-button(class='md-raised md-accent') Login
+  
+  
+  
+  script(src='../controllers/login.js')
+  
