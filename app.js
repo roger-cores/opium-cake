@@ -4,19 +4,22 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+
 var passport = require('passport');
 var routes = require('./server/routes/index');
 var adminUserRoute = require('./server/routes/admin/users');
-var projectRoute = require('./server/routes/projects');
 var adminProjectRoute = require('./server/routes/admin/projects');
+
+var projectRoute = require('./server/routes/api/projects');
+
 var mongoose = require('mongoose');
-var session = require('express-session');
-var flash = require('connect-flash');
 var models = require('./server/models');
 var dbaseConfig = require('./server/models/config.json');
 var connector = require('./server/models/connector');
 var utils = require('./server/utils');
 var app = express();
+var loginPage = require('./server/routes/index');
+var modulePage = require('./server/routes/module');
 
 //set to qa server
 connector(mongoose, dbaseConfig.qa);
@@ -36,8 +39,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //api routes
 
 
-//view routes
-app.use('/', routes);
+
 
 //Admin Panel
 app.use('/api/admin/user', adminUserRoute.registerRoutes(models));
@@ -46,6 +48,9 @@ app.use('/api/admin/project', adminProjectRoute.registerRoutes(models, utils));
 //App
 app.use('/api/project', projectRoute.registerRoutes(models, utils));
 
+//view routes
+app.use('/', loginPage);
+app.use('/module',modulePage)
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
