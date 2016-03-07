@@ -1,21 +1,19 @@
 extends layout
 
 block content
-  div(layout='column' ng-controller='AppCtrl')
-  md-toolbar(layout='row')
+  div(layout='column' ng-controller='LoginCtrl')
+    md-toolbar(layout='row')
         h1=title
-  br
-  br
-  br      
-  md-card(layout="column" style='margin:auto;width:30%;padding: 5px;')
-    md-input-container
-      input(placeholder='username',ng-model='title1')
-    md-input-container
-        input(placeholder='password',ng-model='title1')    
-    md-card-actions(layout="row" layout-align="center")
-      md-button(class='md-raised md-accent') Login
-  
-  
-  
+    br
+    br
+    br      
+    md-card(layout="column" style='margin:auto;width:30%;padding: 5px;')
+      md-input-container
+        input(placeholder='username', ng-model='user.username')
+      md-input-container
+        input(type='password', placeholder='password', ng-model='user.password')    
+      md-card-actions(layout="row" layout-align="center")
+        md-button(class='md-raised md-accent', ng-click='login()') Login
+      {{errorMessage}}  
   script(src='../controllers/login.js')
   

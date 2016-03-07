@@ -4,15 +4,16 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var routes = require('./server/routes/index');
-var userRoute = require('./server/routes/users');
-var projectRoute = require('./server/routes/projects');
+var userRoute = require('./server/routes/api/users');
+var projectRoute = require('./server/routes/api/projects');
 var mongoose = require('mongoose');
 var models = require('./server/models');
 var dbaseConfig = require('./server/models/config.json');
 var connector = require('./server/models/connector');
 var utils = require('./server/utils');
 var app = express();
+var loginPage = require('./server/routes/index');
+var modulePage = require('./server/routes/module');
 
 //set to qa server
 connector(mongoose, dbaseConfig.qa);
@@ -30,13 +31,12 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 //api routes
-
-
-//view routes
-app.use('/', routes);
 app.use('/api/user', userRoute.registerRoutes(models));
 app.use('/api/project', projectRoute.registerRoutes(models, utils));
 
+//view routes
+app.use('/', loginPage);
+app.use('/module',modulePage)
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

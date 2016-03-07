@@ -7,11 +7,11 @@ app.config(function($mdThemingProvider){
    })
     .accentPalette('teal')
    .warnPalette('red');
-}).controller('AppCtrl', function($scope) {
-  $scope.title1 = 'Button';
-  $scope.title4 = 'Warn';
-  $scope.isDisabled = true;
+});
+app.controller('LoginCtrl', function($scope) {
+  $scope.errorMessage="Cannot log you in sorry!";
+  $scope.login = function(){
 
-  $scope.googleUrl = 'http://google.com';
+  }
 
 });

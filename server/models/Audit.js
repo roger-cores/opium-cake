@@ -4,6 +4,5 @@ module.exports.audify = function(object){
   object.createdBy = {type: String, required: true};
   object.modifiedBy = {type: String, required: true};
   object.active = {type: Boolean, required: true, default: true};
-
   return object;
 }
