@@ -9,7 +9,7 @@ module.exports.registerRoutes = function(models) {
 	//deactivate/ban DONE
 
 	router.get('/', function(req, res, next){
-			models.User.find({}, function(err, users){
+			models.User.find({active: true}, function(err, users){
 				if(err){
 					next(err);
 				} else if(!users){
@@ -20,11 +20,23 @@ module.exports.registerRoutes = function(models) {
 			});
 	});
 
+	router.get('/:id', function(req, res, next){
+			models.User.findOne({active: true, _id: req.params.id}, function(err, user){
+				if(err){
+					next(err);
+				} else if(!user){
+					next({message: 'cant load documents'});
+				} else {
+					res.status(200).send(user);
+				}
+			});
+	});
+
 	router.post('/', function(req, res, next){
 
 			var newUser = new models.User(req.body);
 
-			newUser.local.password = newUser.generateHash(req.body.local.password);
+			newUser.password = newUser.generateHash(req.body.password);
 
 			newUser.save(function(err, user){
 					if(err){

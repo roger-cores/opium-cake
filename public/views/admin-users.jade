@@ -1,0 +1,21 @@
+div(ng-controller='UsersCtrl', ng-cloak)
+  md-button.md-fab.md-fab-bottom-right(aria-label='Add User')
+    md-icon(md-svg-src='img/icons/add-user.svg')
+
+  md-list
+    md-subheader.md-no-sticky
+      p.subheader
+      | Users
+    md-divider
+    md-list-item.md-2-line(ng-repeat='user in users')
+
+      .md-list-item-text(style='padding-right: 20px;')
+        h3.strong.padding-below {{user.name}}
+        p
+        | {{user.email}}
+      md-content.md-secondary
+        md-button.md-raised(aria-label='Edit', style="min-width: 1%;", ng-click = 'showAdvanced($event, user._id)')
+          md-icon.icon-sm(md-svg-src='img/icons/edit.svg')
+        md-button.md-raised(aria-label='Delete', style="min-width: 1%;")
+          md-icon.icon-sm(md-svg-src='img/icons/delete.svg', ng-click = 'showConfirm($event ,user._id)')
+      md-divider

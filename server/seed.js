@@ -1,4 +1,4 @@
-module.exports = function(models, ObjectId){
+module.exports = function(models){
 
   var callback = function(err){
     if(err)
@@ -8,10 +8,9 @@ module.exports = function(models, ObjectId){
   models.User.remove({}, callback);
 
   var user = {
-    local: {
-      email: "admin@opiumcake.com",
-      password: "thepassword"
-    },
+    name: "admin",
+    email: "admin@opiumcake.com",
+    password: "thepassword",
 
     createdAt: Date.now(),
     modifiedAt: Date.now(),
@@ -21,10 +20,9 @@ module.exports = function(models, ObjectId){
   };
 
   var user2 = {
-    local: {
-      email: "john.doe@opiumcake.com",
-      password: "thepasswordagain"
-    },
+    name: "John Doe",
+    email: "john.doe@opiumcake.com",
+    password: "thepasswordagain",
 
     createdAt: Date.now(),
     modifiedAt: Date.now(),
@@ -37,10 +35,10 @@ module.exports = function(models, ObjectId){
   var newUser = new models.User(user);
   var newUser2 = new models.User(user2);
 
-  newUser.local.password = newUser.generateHash(user2.local.password);
+  newUser.password = newUser.generateHash(user2.password);
   newUser.save(callback);
 
-  newUser2.local.password = newUser.generateHash(user2.local.password);
+  newUser2.password = newUser.generateHash(user2.password);
   newUser2.save(callback);
 
 }

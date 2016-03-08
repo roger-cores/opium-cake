@@ -1,0 +1,79 @@
+doctype html
+html(lang='en', ng-app='opium-admin')
+  head
+    title= title
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel='stylesheet', href='/css/admin-style.css')
+    link(rel='stylesheet', href='http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css')
+
+  body(ng-controller = 'AdminCtrl', layout="column", flex, layout-fill)
+    script(src='http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js')
+    script(src='http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js')
+    script(src='http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js')
+    script(src='http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js')
+    script(src='http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js')
+    script(src='../controllers/admin.js')
+
+    md-content
+      md-toolbar
+        .md-toolbar-tools.top-navbar
+          md-button.md-icon-button(aria-label='Menu')
+            md-icon(md-svg-icon='../img/icons/menu.svg', ng-click='toggleLeft()').hide-gt-xs
+            md-icon(md-svg-icon='../img/icons/cake.svg').hide.show-gt-xs
+          h2
+            span OpiumCake Admin Panel
+          span(flex='')
+          md-menu
+            md-button.md-icon-button(aria-label='Open phone interactions menu', ng-click='openMenu($mdOpenMenu, $event)')
+              md-icon(md-menu-origin='', md-svg-icon='../img/icons/admin.svg')
+            md-menu-content(width='4')
+              md-menu-item
+                md-button(ng-click='ctrl.redial($event)')
+                  md-icon(md-svg-icon='../img/icons/settings.svg', md-menu-align-target='')
+                  |             Settings
+              md-menu-item
+                md-button(ng-click='')
+                  md-icon(md-svg-icon='../img/icons/exit.svg')
+                  |             Log out
+
+
+    div(layout="row", flex)
+      md-sidenav.md-sidenav-left.md-whiteframe-z2(md-component-id='left', md-is-locked-open="$mdMedia('gt-xs')", style="width:200px")
+        md-toolbar.md-theme-indigo(hide-gt-xs)
+          .md-toolbar-tools
+            md-button.md-icon-button(aria-label='Menu')
+              md-icon(md-svg-icon='../img/icons/left.svg', ng-click='toggleLeft()')
+            h2
+              span Menu
+
+        md-content(flex)
+          md-list
+            md-subheader.md-no-sticky
+              p.subheader
+              | Master Data
+            md-list-item(ng-click="toggleModule('admin-users')", ng-class='usersclass')
+              md-icon(md-svg-icon='../img/icons/avatar.svg')
+              p Users
+            md-list-item(ng-click="toggleModule('admin-projects')", ng-class='projectsclass')
+              md-icon(md-svg-icon='../img/icons/project.svg')
+              p Projects
+            md-divider
+            md-subheader.md-no-sticky
+              p.subheader
+              | Some module #23212
+            md-list-item(ng-click="toggleModule('m1')", ng-class='m1')
+              md-icon(md-svg-icon='../img/icons/avatar.svg')
+              p Some module #1
+            md-list-item(ng-click="toggleModule('m2')", ng-class='m2')
+              md-icon(md-svg-icon='../img/icons/project.svg')
+              p Some module #2
+
+
+
+
+
+
+
+
+      md-content(flex='', layout-padding='', style='')
+        block content

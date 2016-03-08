@@ -1,0 +1,31 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  min-width: 300px;
+}
+
+.top-navbar {
+  background-color: #c0392b;
+}
+
+.selected {
+  background-color: #95a5a6;
+}
+
+.subheader {
+  color: #bdc3c7;
+
+}
+
+.icon-sm {
+  width: 20px;
+  height: 20px;
+}
+
+.padding-below {
+  padding-bottom: 3px;
+}
+
+.strong {
+  font-weight: bold;
+}
